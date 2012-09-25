@@ -982,13 +982,6 @@ config MSM_SMD
 	  used to communicate with various services on the baseband
 	  processor.
 
-config MSM_SMD0_WQ
-	bool "SMD0 TTY Workqueue"
-	depends on (MSM_SMD)
-	default y
-	help
-	  Independent tty workqueue for SMD0
-
 config MSM_N_WAY_SMD
 	depends on (MSM_SMD && (ARCH_QSD8X50 || ARCH_MSM7X30 || ARCH_MSM7227 || ARCH_MSM8X60))
 	default y
@@ -1330,6 +1323,27 @@ config MSM_CPU_FREQ_ONDEMAND_MIN
 	int "Min"
 	default 245760
 
+config SAFE
+	bool "Safe Mode - Max 1.3Ghz OC"
+	default y
+	depends on CPU_FREQ && !PERFLOCK
+	help
+	 !!!! NEVER ALL 3 !!!! - Production Build Mode
+
+config BIGBOY
+	bool "BigBoy Mode - 1.8GHz OC"
+	default n
+	depends on CPU_FREQ && !PERFLOCK
+	help
+	 !!!! NEVER ALL 3 !!!! - 1.8Ghz OC Mode
+
+config WCHRAGE
+	bool "WCH Rage Mode - !! 2.5GHZ OC !!"
+	default n
+	depends on CPU_FREQ && !PERFLOCK
+	help
+	 !!!! NEVER ALL 3 !!!! - Overclock to 2.5GHZ - Hope nothing breaks
+
 config MSM_HW3D
 	tristate "MSM Hardware 3D Register Driver"
 	depends on EARLYSUSPEND
@@ -1486,6 +1500,13 @@ config ARCH_MSM_FLASHLIGHT
         help
           The flashlight driver is for MSM series.
 
+config ARCH_MSM_FLASHLIGHT_DEATH_RAY
+	bool "Enable high-brightness (death ray) mode"
+	depends on ARCH_MSM_FLASHLIGHT
+	default n
+	help
+	  Enables a high-brightness mode for the flash LED. Dangerous
+
 config VIRTUAL_KPANIC_SRC
 	depends on VIRTUAL_KPANIC_PARTITION
 	string "Partition to steal from"
@@ -1552,12 +1573,6 @@ config HTC_ONMODE_CHARGING
 	default n
 	help
 		support on mode charing icon
-
-config BUILD_CIQ
-        bool "Build in CIQ fixes"
-        default n
-        help
-          For CIQ we need to do some additional fixes.
 
 config HTC_EXTDIAG
 	tristate "HTC Extend Diag Logger"
