@@ -1,1 +1,1 @@
-#define UTS_RELEASE "2.6.35.102012-09-25_BD-Ace2.1-Chupacabra-g03856fa"
+#define UTS_RELEASE "2.6.35.10-2012-09-25_BD-Ace_2.1.2_BigBoy-g15920bf-dirty"
